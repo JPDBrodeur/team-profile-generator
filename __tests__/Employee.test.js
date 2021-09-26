@@ -6,4 +6,4 @@ test('creates an employee object', () => {
     expect(employee.name).toBe('John');
     expect(employee.id).toBe('12');
     expect(employee.email).toBe('john@fakemail.com');
-})
+});
