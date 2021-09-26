@@ -33,30 +33,32 @@ const promptUser = () => {
                 type: 'text',
                 name: 'officeNumber',
                 message: 'Office Number:'
-            },
-            {
-                type: 'list',
-                name: 'menu',
-                message: 'What would you like to do next?',
-                choices: ['Add an engineer', 'Add an intern', 'Finish building my team']
             }
         ])
-        .then(({ name, id, email, officeNumber, menu }) => {
+        .then(({ name, id, email, officeNumber }) => {
             const employee = new Manager(name, id, email, officeNumber);
             teamData.push(employee);
-            nextPrompt(menu);
+            launchMenu();
         });
 };
 
-const nextPrompt = menu => {
-    if (menu === 'Add an engineer') {
-        return engineerPrompt(teamData);
-    } else if (menu === 'Add an intern') {
-        return internPrompt(teamData);
-    } else {
-        console.log(teamData);
-        return teamData;
-    };
+const launchMenu = () => {
+    inquirer.prompt({
+        type: 'list',
+        name: 'nextPrompt',
+        message: 'What would you like to do next?',
+        choices: ['Add an engineer', 'Add an intern', 'Finish building my team']
+    })
+    .then(({ nextPrompt }) => {
+        if (nextPrompt === 'Add an engineer') {
+            return engineerPrompt(teamData);
+        } else if (nextPrompt === 'Add an intern') {
+            return internPrompt(teamData);
+        } else {
+            console.log(teamData);
+            return teamData;
+        };
+    });
 };
 
 const engineerPrompt = teamData => {
@@ -87,18 +89,12 @@ const engineerPrompt = teamData => {
                 type: 'text',
                 name: 'github',
                 message: 'GitHub Username:'
-            },
-            {
-                type: 'list',
-                name: 'menu',
-                message: 'What would you like to do next?',
-                choices: ['Add an engineer', 'Add an intern', 'Finish building my team']
             }
         ])
-        .then(({ name, id, email, github, menu }) => {
+        .then(({ name, id, email, github }) => {
             const employee = new Engineer(name, id, email, github);
             teamData.push(employee);
-            nextPrompt(menu);
+            launchMenu();
         });
 };
 
@@ -130,18 +126,12 @@ const internPrompt = teamData => {
                 type: 'text',
                 name: 'school',
                 message: 'School:'
-            },
-            {
-                type: 'list',
-                name: 'menu',
-                message: 'What would you like to do next?',
-                choices: ['Add an engineer', 'Add an intern', 'Finish building my team']
             }
         ])
-        .then(({ name, id, email, school, menu }) => {
+        .then(({ name, id, email, school }) => {
             const employee = new Intern(name, id, email, school);
             teamData.push(employee);
-            nextPrompt(menu);
+            launchMenu();
         });
 };
 
