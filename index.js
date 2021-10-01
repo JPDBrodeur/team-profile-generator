@@ -135,4 +135,7 @@ const internPrompt = teamData => {
         });
 };
 
-promptUser();
+promptUser()
+    .then(teamData => {
+        return generatePage(teamData);
+    })

@@ -1,8 +1,27 @@
-// export function to generate entire page
-module.exports = templateData => {
-    // destructure page data by section
-    const { projects, about, ...header } = templateData;
+// create the manager card
+const generateManager = manager => {
+    const { name, id, email, officeNumber } = manager;
   
+    return `
+        <div class='col-12 col-md-6 col-xl-4'>
+            <article class='card bg-light shadow mb-4'>
+                <div class='card-header bg-primary text-white'>
+                    <h2>${name}</h2>
+                    <h3><span class="iconify" data-icon="fa-solid:mug-hot"></span> Manager</h3>
+                </div>
+                <ul class='list-group p-4'>
+                    <li class='list-group-item'>ID: ${id}</li>
+                    <li class='list-group-item'>Email: <a href='mailto:${email}'>${email}</a></li>
+                    <li class='list-group-item'>Office number: ${officeNumber}</li>
+                </ul>
+            </article>
+        </div>
+    `;
+  };
+
+// export function to generate entire page
+module.exports = teamData => {
+    const manager = teamData[0];
     return `
     <!DOCTYPE html>
     <html lang="en-us">
@@ -19,19 +38,7 @@ module.exports = templateData => {
         </header>
         <section class='container'>
             <div class='row justify-content-center'>
-                <div class='col-12 col-md-6 col-xl-4'>
-                    <article class='card bg-light shadow mb-4'>
-                        <div class='card-header bg-primary text-white'>
-                            <h2>Jared</h2>
-                            <h3><span class="iconify" data-icon="fa-solid:mug-hot"></span> Manager</h3>
-                        </div>
-                        <ul class='list-group p-4'>
-                            <li class='list-group-item'>ID: 1</li>
-                            <li class='list-group-item'>Email: <a href='mailto:jaredfakemail.com'>jared@fakemail.com</a></li>
-                            <li class='list-group-item'>Office number: 1</li>
-                        </ul>
-                    </article>
-                </div>
+                ${generateManager(manager)}
                 <div class='col-12 col-md-6 col-xl-4'>
                     <article class='card bg-light shadow mb-4'>
                         <div class='card-header bg-primary text-white'>
