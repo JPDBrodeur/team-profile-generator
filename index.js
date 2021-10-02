@@ -2,6 +2,8 @@ const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+
+const generatePage = require('./src/page-template');
 const fs = require('fs');
 
 const teamData = [];
@@ -52,9 +54,9 @@ const launchMenu = () => {
     })
     .then(({ nextPrompt }) => {
         if (nextPrompt === 'Add an engineer') {
-            return engineerPrompt(teamData);
+            engineerPrompt(teamData);
         } else if (nextPrompt === 'Add an intern') {
-            return internPrompt(teamData);
+            internPrompt(teamData);
         } else {
             console.log(teamData);
             return teamData; 
