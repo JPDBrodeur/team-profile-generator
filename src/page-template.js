@@ -19,7 +19,7 @@ const generateManager = manager => {
 
 // create engineer cards
 const generateEngineers = engineerArray => {
-    engineerArray.forEach((engineer) => {
+    const engineerHtmlArr = engineerArray.map(engineer => {
         return `
             <div class='col-12 col-md-6 col-xl-4'>
                 <article class='card bg-light shadow mb-4'>
@@ -36,10 +36,12 @@ const generateEngineers = engineerArray => {
             </div>
         `;
     });
-  };
+    return `${engineerHtmlArr.join('')}`;
+};
 
 // create intern cards
 const generateInterns = internArray => {
+    console.log(internArray);
     internArray.forEach((intern) => {
         return `
             <div class='col-12 col-md-6 col-xl-4'>

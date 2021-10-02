@@ -3,7 +3,7 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
-const generatePage = require('./src/page-template');
+const buildHtml = require('./src/page-template');
 const fs = require('fs');
 
 const teamData = [];
@@ -46,7 +46,7 @@ const promptUser = () => {
 };
 
 const launchMenu = () => {
-    inquirer.prompt({
+    return inquirer.prompt({
         type: 'list',
         name: 'nextPrompt',
         message: 'What would you like to do next?',
@@ -58,8 +58,7 @@ const launchMenu = () => {
         } else if (nextPrompt === 'Add an intern') {
             internPrompt(teamData);
         } else {
-            console.log(teamData);
-            return teamData; 
+            writeFile(buildHtml(teamData));
         };
     });
 };
@@ -139,31 +138,16 @@ const internPrompt = teamData => {
 };
 
 const writeFile = fileContent => {
-  return new Promise((resolve, reject) => {
-    fs.writeFile('./dist/index.html', fileContent, err => {
-      if (err) {
-        reject(err);
-        return;
-      }
+    return new Promise((resolve, reject) => {
+        fs.writeFile('./dist/index.html', fileContent, err => {
+            if (err) {
+                reject(err);
+                return;
+            }
 
-      resolve({
-        ok: true,
-        message: 'File created!'
-      });
+            console.log('File created!');
+        });
     });
-  });
 };
 
-promptUser()
-    .then(teamData => {
-        return generatePage(teamData);
-    })
-    .then(pageHTML => {
-        return writeFile(pageHTML);
-    })
-    .then(writeFileResponse => {
-        console.log(writeFileResponse);
-    })
-    .catch(err => {
-        console.log(err);
-    });
+promptUser();
