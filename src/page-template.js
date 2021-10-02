@@ -1,27 +1,70 @@
 // create the manager card
 const generateManager = manager => {
-    const { name, id, email, officeNumber } = manager;
-  
     return `
         <div class='col-12 col-md-6 col-xl-4'>
             <article class='card bg-light shadow mb-4'>
                 <div class='card-header bg-primary text-white'>
-                    <h2>${name}</h2>
+                    <h2>${manager.getName()}</h2>
                     <h3><span class="iconify" data-icon="fa-solid:mug-hot"></span> Manager</h3>
                 </div>
                 <ul class='list-group p-4'>
-                    <li class='list-group-item'>ID: ${id}</li>
-                    <li class='list-group-item'>Email: <a href='mailto:${email}'>${email}</a></li>
-                    <li class='list-group-item'>Office number: ${officeNumber}</li>
+                    <li class='list-group-item'>ID: ${manager.getId()}</li>
+                    <li class='list-group-item'>Email: <a href='mailto:${manager.getEmail()}'>${manager.getEmail()}</a></li>
+                    <li class='list-group-item'>Office number: ${manager.getOfficeNumber()}</li>
                 </ul>
             </article>
         </div>
     `;
   };
 
+// create engineer cards
+const generateEngineers = engineerArray => {
+    engineerArray.forEach((engineer) => {
+        return `
+            <div class='col-12 col-md-6 col-xl-4'>
+                <article class='card bg-light shadow mb-4'>
+                    <div class='card-header bg-primary text-white'>
+                        <h2>${engineer.getName()}</h2>
+                        <h3><span class="iconify" data-icon="fa-solid:glasses"></span> Engineer</h3>
+                    </div>
+                    <ul class='list-group p-4'>
+                        <li class='list-group-item'>ID: ${engineer.getId()}</li>
+                        <li class='list-group-item'>Email: <a href='mailto:${engineer.getEmail()}'>${engineer.getEmail()}</a></li>
+                        <li class='list-group-item'>GitHub: <a href='https://github.com/${engineer.getGithub()}'>${engineer.getGithub()}</a></li>
+                    </ul>
+                </article>
+            </div>
+        `;
+    });
+  };
+
+// create intern cards
+const generateInterns = internArray => {
+    internArray.forEach((intern) => {
+        return `
+            <div class='col-12 col-md-6 col-xl-4'>
+                <article class='card bg-light shadow mb-4'>
+                    <div class='card-header bg-primary text-white'>
+                        <h2>${intern.getName()}</h2>
+                        <h3><span class="iconify" data-icon="fa-solid:user-graduate"></span> Intern</h3>
+                    </div>
+                    <ul class='list-group p-4'>
+                        <li class='list-group-item'>ID: ${intern.getId()}</li>
+                        <li class='list-group-item'>Email: <a href='mailto:${intern.getEmail()}'>${intern.getEmail()}</a></li>
+                        <li class='list-group-item'>School: ${intern.getSchool()}</li>
+                    </ul>
+                </article>
+            </div>
+        `;
+    });
+  };
+
 // export function to generate entire page
 module.exports = teamData => {
     const manager = teamData[0];
+    const engineerArray = teamData.filter(employee => employee.getRole() === 'Engineer');
+    const internArray = teamData.filter(employee => employee.getRole() === 'Intern');
+
     return `
     <!DOCTYPE html>
     <html lang="en-us">
@@ -39,58 +82,8 @@ module.exports = teamData => {
         <section class='container'>
             <div class='row justify-content-center'>
                 ${generateManager(manager)}
-                <div class='col-12 col-md-6 col-xl-4'>
-                    <article class='card bg-light shadow mb-4'>
-                        <div class='card-header bg-primary text-white'>
-                            <h2>Alec</h2>
-                            <h3><span class="iconify" data-icon="fa-solid:glasses"></span> Engineer</h3>
-                        </div>
-                        <ul class='list-group p-4'>
-                            <li class='list-group-item'>ID: 2</li>
-                            <li class='list-group-item'>Email: <a href='mailto:alecfakemail.com'>alec@fakemail.com</a></li>
-                            <li class='list-group-item'>GitHub: <a href='https://github.com/ibealec'>ibealec</a></li>
-                        </ul>
-                    </article>
-                </div>
-                <div class='col-12 col-md-6 col-xl-4'>
-                    <article class='card bg-light shadow mb-4'>
-                        <div class='card-header bg-primary text-white'>
-                            <h2>Grace</h2>
-                            <h3><span class="iconify" data-icon="fa-solid:glasses"></span> Engineer</h3>
-                        </div>
-                        <ul class='list-group p-4'>
-                            <li class='list-group-item'>ID: 3</li>
-                            <li class='list-group-item'>Email: <a href='mailto:gracefakemail.com'>grace@fakemail.com</a></li>
-                            <li class='list-group-item'>GitHub: <a href='https://github.com/gchoi2u'>gchoi2u</a></li>
-                        </ul>
-                    </article>
-                </div>
-                <div class='col-12 col-md-6 col-xl-4'>
-                    <article class='card bg-light shadow mb-4'>
-                        <div class='card-header bg-primary text-white'>
-                            <h2>Tammer</h2>
-                            <h3><span class="iconify" data-icon="fa-solid:glasses"></span> Engineer</h3>
-                        </div>
-                        <ul class='list-group p-4'>
-                            <li class='list-group-item'>ID: 4</li>
-                            <li class='list-group-item'>Email: <a href='mailto:tammerfakemail.com'>tammer@fakemail.com</a></li>
-                            <li class='list-group-item'>GitHub: <a href='https://github.com/tammerg'>tammerg</a></li>
-                        </ul>
-                    </article>
-                </div>
-                <div class='col-12 col-md-6 col-xl-4'>
-                    <article class='card bg-light shadow mb-4'>
-                        <div class='card-header bg-primary text-white'>
-                            <h2>John</h2>
-                            <h3><span class="iconify" data-icon="fa-solid:user-graduate"></span> Intern</h3>
-                        </div>
-                        <ul class='list-group p-4'>
-                            <li class='list-group-item'>ID: 5</li>
-                            <li class='list-group-item'>Email: <a href='mailto:johnfakemail.com'>john@fakemail.com</a></li>
-                            <li class='list-group-item'>School: 2University</li>
-                        </ul>
-                    </article>
-                </div>
+                ${generateEngineers(engineerArray)}
+                ${generateInterns(internArray)}
             </div>
         </section>
         <script src="https://code.iconify.design/2/2.0.3/iconify.min.js"></script>
@@ -98,4 +91,3 @@ module.exports = teamData => {
     </html>
     `;
   };
-  

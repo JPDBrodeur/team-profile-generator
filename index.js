@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const fs = require('fs');
 
 const teamData = [];
 
@@ -56,7 +57,7 @@ const launchMenu = () => {
             return internPrompt(teamData);
         } else {
             console.log(teamData);
-            return teamData;
+            return teamData; 
         };
     });
 };
@@ -135,7 +136,32 @@ const internPrompt = teamData => {
         });
 };
 
+const writeFile = fileContent => {
+  return new Promise((resolve, reject) => {
+    fs.writeFile('./dist/index.html', fileContent, err => {
+      if (err) {
+        reject(err);
+        return;
+      }
+
+      resolve({
+        ok: true,
+        message: 'File created!'
+      });
+    });
+  });
+};
+
 promptUser()
     .then(teamData => {
         return generatePage(teamData);
     })
+    .then(pageHTML => {
+        return writeFile(pageHTML);
+    })
+    .then(writeFileResponse => {
+        console.log(writeFileResponse);
+    })
+    .catch(err => {
+        console.log(err);
+    });
