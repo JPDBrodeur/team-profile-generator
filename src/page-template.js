@@ -41,8 +41,7 @@ const generateEngineers = engineerArray => {
 
 // create intern cards
 const generateInterns = internArray => {
-    console.log(internArray);
-    internArray.forEach((intern) => {
+    const internHtmlArr = internArray.map(intern => {
         return `
             <div class='col-12 col-md-6 col-xl-4'>
                 <article class='card bg-light shadow mb-4'>
@@ -59,7 +58,8 @@ const generateInterns = internArray => {
             </div>
         `;
     });
-  };
+    return `${internHtmlArr.join('')}`;
+};
 
 // export function to generate entire page
 module.exports = teamData => {
