@@ -30,7 +30,7 @@ A Node.js command-line application that takes in information about employees on 
 4. Answer each prompt
 5. Once completed, access your HTML file in the /dist subdirectory
 
- 👉 View a [Video Walkthrough](#)
+ 👉 View a [Video Walkthrough](https://watch.screencastify.com/v/L5adRGyNqSbz74ZYOBWc)
 
 ![Screenshot](./assets/screenshot1.png)
 ![Screenshot](./assets/screenshot2.png)
